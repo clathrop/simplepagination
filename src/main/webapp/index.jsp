@@ -28,21 +28,28 @@
                                 deleteAction : 'delete'
                         },
                         fields : {
-                                name : {
-                                        title : 'Name',
-                                        width : '30%',
+                                firstName : {
+                                        title : 'First Name',
+                                        width : '20%',
                                         key : true,
                                         list : true,
                                         create : true
                                 },
+                                lastName : {
+                                    title : 'Last Name',
+                                    width : '20%',
+                                    key : true,
+                                    list : true,
+                                    create : true
+                            	},
                                 userName : {
                                         title : 'User Name',
-                                        width : '30%',
+                                        width : '20%',
                                         edit : false
                                 },
                                 email : {
                                         title : 'Email',
-                                        width : '30%',
+                                        width : '20%',
                                         edit : true
                                 },
                                 age : {
@@ -59,7 +66,7 @@
 </head>
 <body>
 <div>
-        <h3>Integrating jTable jQuery plugin and Struts 2 framework</h3>
+        <h3>Pagination prototype build with jTable and Struts2 framework</h3>
             <div id="UserTableContainer"></div>
 </div>
 </body>

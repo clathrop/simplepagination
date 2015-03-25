@@ -63,7 +63,38 @@ public class UserDaoImpl implements UserDao {
 
 			rs.close();
 			stmt.close();
-			// conn.close();
+			conn.close();
+			return userList;
+
+		} catch (Exception e) {
+			System.out.print(e);
+			return null;
+		}
+	}
+	
+	public List<User> getAllUsersInRange(int startPageIndex, int recordsPerPage) {
+
+		String selectQuery = "SELECT * FROM users LIMIT " + Integer.toString(startPageIndex) + "," + Integer.toString(recordsPerPage);
+		List<User> userList = new ArrayList<User>();
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectQuery);
+
+			while (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String userName = rs.getString("user_name");
+				String email = rs.getString("email");
+				String age = rs.getString("age");
+
+				User user = new User(firstName, lastName, userName, email, Integer.parseInt(age));
+				userList.add(user);
+			}
+
+			rs.close();
+			stmt.close();
+		    conn.close();
 			return userList;
 
 		} catch (Exception e) {

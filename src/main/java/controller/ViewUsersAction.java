@@ -21,7 +21,8 @@ public class ViewUsersAction extends ActionSupport {
 	
 	public String execute(){
 		UserDao userDao = new UserDaoImpl();
-		records = userDao.getAllUsers();
+		//records = userDao.getAllUsers();
+		records = userDao.getAllUsersInRange(jtStartIndex, jtPageSize);
 		totalRecordCount = userDao.getUserCount();
 		
 		setResult("OK");
