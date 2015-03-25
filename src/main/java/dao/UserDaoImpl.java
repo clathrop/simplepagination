@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,110 +17,174 @@ import org.apache.log4j.Logger;
 import model.User;
 
 public class UserDaoImpl implements UserDao {
+
+	private static final String LOCAL_SQLITE_JDBC_DRIVER = "org.sqlite.JDBC";
+	private static final String LOCAL_DB_URL = "jdbc:sqlite:hero.db";
+	private static final String REMOTE_DB_URL = "java:comp/env/jdbc/sqlite";
+	private static final String FIRST_NAME = "first_name";
+	private static final String LAST_NAME = "last_name";
+	private static final String USER_NAME = "user_name";
+	private static final String EMAIL = "email";
+	private static final String AGE = "age";
+
 	private Connection conn = null;
-	Logger LOG = Logger.getLogger(UserDaoImpl.class);
-	
-	public UserDaoImpl(){
-		
+	private MyDatabase mydb = null;
+	private DataSource ds = null;
+	boolean LOCAL_DB = false;
+
+	public UserDaoImpl() {
+
 		try {
 			Context ctx = new InitialContext();
-			
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/sqlite");
-			conn = ds.getConnection();
-			
-			LOG.info("Client info from UserDaoImpl" + conn.getClientInfo());
-			System.out.print("Client info from UserDaoImpl" + conn.getClientInfo());
-			
-//			String sUrlString = "jdbc:sqlite:hero.db";
-//			MyDatabase mydb = new MyDatabase("org.sqlite.JDBC", sUrlString);
-//			Connection conn = mydb.getConnection();
+			ds = (DataSource) ctx.lookup(REMOTE_DB_URL);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			LOG.error(e);
+			try {
+				mydb = new MyDatabase(LOCAL_SQLITE_JDBC_DRIVER, LOCAL_DB_URL);
+				LOCAL_DB = true;
+			} catch (Exception f) {
+				f.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 	}
-	
 
 	public List<User> getAllUsers() {
 
 		String selectQuery = "SELECT * FROM users";
 		List<User> userList = new ArrayList<User>();
+		Statement stmt = null;
+		ResultSet rs = null;
 
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectQuery);
+			if(LOCAL_DB == true){
+				conn = mydb.getConnection();
+			} else {
+				conn = ds.getConnection();
+			}
+			
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(selectQuery);
 
 			while (rs.next()) {
-				String firstName = rs.getString("first_name");
-				String lastName = rs.getString("last_name");
-				String userName = rs.getString("user_name");
-				String email = rs.getString("email");
-				String age = rs.getString("age");
+				String firstName = rs.getString(FIRST_NAME);
+				String lastName = rs.getString(LAST_NAME);
+				String userName = rs.getString(USER_NAME);
+				String email = rs.getString(EMAIL);
+				String age = rs.getString(AGE);
 
-				User user = new User(firstName, lastName, userName, email, Integer.parseInt(age));
+				User user = new User(firstName, lastName, userName, email,
+						Integer.parseInt(age));
 				userList.add(user);
 			}
 
-			rs.close();
-			stmt.close();
-			conn.close();
 			return userList;
 
 		} catch (Exception e) {
 			System.out.print(e);
 			return null;
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+			}
 		}
 	}
-	
+
 	public List<User> getAllUsersInRange(int startPageIndex, int recordsPerPage) {
 
-		String selectQuery = "SELECT * FROM users LIMIT " + Integer.toString(startPageIndex) + "," + Integer.toString(recordsPerPage);
+		String selectQuery = "SELECT * FROM users LIMIT "
+				+ Integer.toString(startPageIndex) + ","
+				+ Integer.toString(recordsPerPage);
 		List<User> userList = new ArrayList<User>();
+		Statement stmt = null;
+		ResultSet rs = null;
 
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectQuery);
+			if(LOCAL_DB == true){
+				conn = mydb.getConnection();
+			} else {
+				conn = ds.getConnection();
+			}
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(selectQuery);
 
 			while (rs.next()) {
-				String firstName = rs.getString("first_name");
-				String lastName = rs.getString("last_name");
-				String userName = rs.getString("user_name");
-				String email = rs.getString("email");
-				String age = rs.getString("age");
+				String firstName = rs.getString(FIRST_NAME);
+				String lastName = rs.getString(LAST_NAME);
+				String userName = rs.getString(USER_NAME);
+				String email = rs.getString(EMAIL);
+				String age = rs.getString(AGE);
 
-				User user = new User(firstName, lastName, userName, email, Integer.parseInt(age));
+				User user = new User(firstName, lastName, userName, email,
+						Integer.parseInt(age));
 				userList.add(user);
 			}
 
-			rs.close();
-			stmt.close();
-		    conn.close();
 			return userList;
 
 		} catch (Exception e) {
 			System.out.print(e);
 			return null;
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+			}
 		}
 	}
 
 	public Integer getUserCount() {
 
 		String selectQuery = "SELECT COUNT(*) FROM users";
+		Statement stmt = null;
+		ResultSet rs = null;
 
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectQuery);
+			if(LOCAL_DB == true){
+				conn = mydb.getConnection();
+			} else {
+				conn = ds.getConnection();
+			}
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(selectQuery);
 			// get count
 			int tableCount = rs.getInt(1);
 
-			rs.close();
-			stmt.close();
 			return tableCount;
 
 		} catch (Exception e) {
 			System.out.print(e);
 			return null;
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+			}
 		}
 	}
 

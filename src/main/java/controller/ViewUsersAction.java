@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import model.User;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -11,6 +13,7 @@ import dao.UserDao;
 import dao.UserDaoImpl;
 
 public class ViewUsersAction extends ActionSupport {
+	Logger LOG = Logger.getLogger(ViewUsersAction.class);
 
 	private static final long serialVersionUID = 1L;
 	private List<User> records = new ArrayList<User>();

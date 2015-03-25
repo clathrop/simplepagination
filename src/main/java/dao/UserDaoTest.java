@@ -6,6 +6,7 @@ import model.User;
 
 public class UserDaoTest {
 
+	//very simple test to make sure the dao is working and communicating with local db
 	public static void main(String[] args) {
 		UserDao userDao = new UserDaoImpl();
 		

@@ -22,10 +22,7 @@
                 		pageSize: 3,
                         title : 'User Table',
                         actions : {
-                                listAction : 'listAction',
-                                createAction : 'create',
-                                updateAction : 'update',
-                                deleteAction : 'delete'
+                                listAction : 'listAction'
                         },
                         fields : {
                                 firstName : {
