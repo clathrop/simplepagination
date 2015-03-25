@@ -7,5 +7,6 @@ import model.User;
 public interface UserDao {
 
 	public List<User> getAllUsers();
+	public Integer getUserCount();
 
 }

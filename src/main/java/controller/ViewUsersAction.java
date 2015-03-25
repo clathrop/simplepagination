@@ -7,6 +7,9 @@ import model.User;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import dao.UserDao;
+import dao.UserDaoImpl;
+
 public class ViewUsersAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
@@ -14,14 +17,13 @@ public class ViewUsersAction extends ActionSupport {
 	private int jtStartIndex;
 	private int jtPageSize;
 	private String result;
-	
-	
+	private Integer totalRecordCount;
 	
 	public String execute(){
+		UserDao userDao = new UserDaoImpl();
+		records = userDao.getAllUsers();
+		totalRecordCount = userDao.getUserCount();
 		
-		for(int i = 0;i<20;i++){
-			records.add(new User("name"+Integer.toString(i), "username"+Integer.toString(i), "email", i));
-		}
 		setResult("OK");
 		return SUCCESS;
 	}
@@ -56,6 +58,14 @@ public class ViewUsersAction extends ActionSupport {
 
 	public void setJtPageSize(int jtPageSize) {
 		this.jtPageSize = jtPageSize;
+	}
+
+	public Integer getTotalRecordCount() {
+		return totalRecordCount;
+	}
+
+	public void setTotalRecordCount(Integer totalRecordCount) {
+		this.totalRecordCount = totalRecordCount;
 	}
 
 }

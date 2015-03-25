@@ -1,24 +1,34 @@
 package model;
 
 public class User {
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String userName;
 	private String email;
 	private int age;
 	
-	public User(String name, String userName, String email, int age){
-		this.name = name;
+	public User(String firstName, String lastName, String userName, String email, int age){
+		this.firstName = firstName;
+		this.setLastName(lastName);
 		this.userName = userName;
 		this.email = email;
 		this.age = age;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getUserName() {

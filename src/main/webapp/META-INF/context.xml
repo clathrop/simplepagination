@@ -1,0 +1,9 @@
+<Context>
+     <Resource name="jdbc/sqlite" 
+            auth="Container" 
+            type="javax.sql.DataSource" 
+            driverClassName="org.sqlite.JDBC"
+            url="jdbc:sqlite:/var/lib/tomcat7/dbs/hero.db"
+            factory="org.apache.commons.dbcp.BasicDataSourceFactory">
+  </Resource>
+</Context>
