@@ -19,7 +19,7 @@
         $(document).ready(function() {
                 $('#UserTableContainer').jtable({
                 		paging: true,
-                		pageSize: 3,
+                		pageSize: 5,
                         title : 'User Table',
                         actions : {
                                 listAction : 'listAction'

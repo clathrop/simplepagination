@@ -19,7 +19,7 @@
         $(document).ready(function() {
                 $('#UserTableContainer').jtable({
                 		paging: true,
-                		pageSize: 3,
+                		pageSize: 5,
                         title : 'User Table',
                         actions : {
                                 listAction : 'listAction'
@@ -28,16 +28,12 @@
                                 firstName : {
                                         title : 'First Name',
                                         width : '20%',
-                                        key : true,
-                                        list : true,
-                                        create : true
+                                        edit : false
                                 },
                                 lastName : {
-                                    title : 'Last Name',
-                                    width : '20%',
-                                    key : true,
-                                    list : true,
-                                    create : true
+                                    	title : 'Last Name',
+                                    	width : '20%',
+                                    	edit : false
                             	},
                                 userName : {
                                         title : 'User Name',
@@ -47,12 +43,13 @@
                                 email : {
                                         title : 'Email',
                                         width : '20%',
-                                        edit : true
+                                        key: true,
+                                        edit : false
                                 },
                                 age : {
                                         title : 'Age',
                                         width : '20%',
-                                        edit : true
+                                        edit : false
                                 }
                         }
                 });
@@ -63,7 +60,7 @@
 </head>
 <body>
 <div>
-        <h3>Pagination prototype build with jTable and Struts2 framework</h3>
+        <h3>Pagination prototype built with jTable and Struts2 framework</h3>
             <div id="UserTableContainer"></div>
 </div>
 </body>

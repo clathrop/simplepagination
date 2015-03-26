@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
 			return userList;
 
 		} catch (Exception e) {
-			System.out.print(e);
+			e.printStackTrace();
 			return null;
 		} finally {
 			try {
@@ -132,7 +132,7 @@ public class UserDaoImpl implements UserDao {
 			return userList;
 
 		} catch (Exception e) {
-			System.out.print(e);
+			e.printStackTrace();
 			return null;
 		} finally {
 			try {
@@ -170,7 +170,7 @@ public class UserDaoImpl implements UserDao {
 			return tableCount;
 
 		} catch (Exception e) {
-			System.out.print(e);
+			e.printStackTrace();
 			return null;
 		} finally {
 			try {
