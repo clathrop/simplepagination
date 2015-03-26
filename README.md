@@ -2,6 +2,8 @@
 
 A prototype for simple pagination functionality to view users in a database. 
 
+Built with Struts2 framework and jTable.
+
 Steps to install:
 
 1. Clone this repo to your local dev environment: 
