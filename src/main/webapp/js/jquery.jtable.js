@@ -3701,7 +3701,7 @@ THE SOFTWARE.
         *************************************************************************/
         _onrecordsLoaded: function (data) {
             if (this.options.paging) {
-                this._totalRecordCount = data.TotalRecordCount;
+                this._totalRecordCount = data.totalRecordCount;
                 this._createPagingList();
                 this._createPagingInfo();
                 this._refreshGotoPageInput();
