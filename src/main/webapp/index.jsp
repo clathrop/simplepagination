@@ -59,7 +59,7 @@
 
 </head>
 <body>
-<div>
+<div style="text-align: center;">
         <h3>Pagination prototype built with jTable and Struts2 framework</h3>
             <div id="UserTableContainer"></div>
 </div>
