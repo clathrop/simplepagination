@@ -1,4 +1,4 @@
-package dao;
+package com.clathrop.hero.db;
 
 
 import java.sql.Connection;

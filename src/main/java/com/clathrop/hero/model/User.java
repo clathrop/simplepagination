@@ -1,4 +1,4 @@
-package model;
+package com.clathrop.hero.model;
 
 public class User {
 	private String firstName;
@@ -9,7 +9,7 @@ public class User {
 	
 	public User(String firstName, String lastName, String userName, String email, int age){
 		this.firstName = firstName;
-		this.setLastName(lastName);
+		this.lastName = lastName;
 		this.userName = userName;
 		this.email = email;
 		this.age = age;

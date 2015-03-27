@@ -1,17 +1,15 @@
-package controller;
+package com.clathrop.hero.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import model.User;
-
+import com.clathrop.hero.dao.UserDao;
+import com.clathrop.hero.dao.UserDaoImpl;
+import com.clathrop.hero.model.User;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
-
-import dao.UserDao;
-import dao.UserDaoImpl;
 
 public class ViewUsersAction extends ActionSupport {
 	Logger LOG = Logger.getLogger(ViewUsersAction.class);
@@ -33,6 +31,7 @@ public class ViewUsersAction extends ActionSupport {
 			setResult(OK);
 			return Action.SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			setResult(ERROR);
 			return Action.ERROR;
 		}

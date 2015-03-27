@@ -1,4 +1,4 @@
-package dao;
+package com.clathrop.hero.db;
 
 
 public class MyDatabase extends Database {

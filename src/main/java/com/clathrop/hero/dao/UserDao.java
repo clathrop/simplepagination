@@ -1,8 +1,8 @@
-package dao;
+package com.clathrop.hero.dao;
 
 import java.util.List;
 
-import model.User;
+import com.clathrop.hero.model.User;
 
 public interface UserDao {
 

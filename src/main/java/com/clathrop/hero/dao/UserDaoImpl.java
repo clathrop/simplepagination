@@ -1,4 +1,4 @@
-package dao;
+package com.clathrop.hero.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,7 +14,8 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-import model.User;
+import com.clathrop.hero.db.MyDatabase;
+import com.clathrop.hero.model.User;
 
 public class UserDaoImpl implements UserDao {
 
@@ -33,7 +34,6 @@ public class UserDaoImpl implements UserDao {
 	boolean LOCAL_DB = false;
 
 	public UserDaoImpl() {
-
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup(REMOTE_DB_URL);
@@ -57,11 +57,55 @@ public class UserDaoImpl implements UserDao {
 		ResultSet rs = null;
 
 		try {
-			if(LOCAL_DB == true){
-				conn = mydb.getConnection();
-			} else {
-				conn = ds.getConnection();
+			conn = LOCAL_DB ? mydb.getConnection() : ds.getConnection();
+
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(selectQuery);
+
+			while (rs.next()) {
+				String firstName = rs.getString(FIRST_NAME);
+				String lastName = rs.getString(LAST_NAME);
+				String userName = rs.getString(USER_NAME);
+				String email = rs.getString(EMAIL);
+				String age = rs.getString(AGE);
+
+				User user = new User(firstName, lastName, userName, email,
+						Integer.parseInt(age));
+				userList.add(user);
 			}
+
+			return userList;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e2) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e3) {
+			}
+		}
+	}
+
+	public List<User> getAllUsersInRange(int startPageIndex, int recordsPerPage) {
+
+		String selectQuery = "SELECT * FROM users LIMIT "
+				+ Integer.toString(startPageIndex) + ","
+				+ Integer.toString(recordsPerPage);
+		List<User> userList = new ArrayList<User>();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = LOCAL_DB ? mydb.getConnection() : ds.getConnection();
 			
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(selectQuery);
@@ -90,62 +134,11 @@ public class UserDaoImpl implements UserDao {
 			}
 			try {
 				stmt.close();
-			} catch (SQLException e) {
+			} catch (SQLException e2) {
 			}
 			try {
 				conn.close();
-			} catch (SQLException e) {
-			}
-		}
-	}
-
-	public List<User> getAllUsersInRange(int startPageIndex, int recordsPerPage) {
-
-		String selectQuery = "SELECT * FROM users LIMIT "
-				+ Integer.toString(startPageIndex) + ","
-				+ Integer.toString(recordsPerPage);
-		List<User> userList = new ArrayList<User>();
-		Statement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			if(LOCAL_DB == true){
-				conn = mydb.getConnection();
-			} else {
-				conn = ds.getConnection();
-			}
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(selectQuery);
-
-			while (rs.next()) {
-				String firstName = rs.getString(FIRST_NAME);
-				String lastName = rs.getString(LAST_NAME);
-				String userName = rs.getString(USER_NAME);
-				String email = rs.getString(EMAIL);
-				String age = rs.getString(AGE);
-
-				User user = new User(firstName, lastName, userName, email,
-						Integer.parseInt(age));
-				userList.add(user);
-			}
-
-			return userList;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				rs.close();
-			} catch (SQLException e1) {
-			}
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-			}
-			try {
-				conn.close();
-			} catch (SQLException e) {
+			} catch (SQLException e3) {
 			}
 		}
 	}
@@ -157,11 +150,8 @@ public class UserDaoImpl implements UserDao {
 		ResultSet rs = null;
 
 		try {
-			if(LOCAL_DB == true){
-				conn = mydb.getConnection();
-			} else {
-				conn = ds.getConnection();
-			}
+			conn = LOCAL_DB ? mydb.getConnection() : ds.getConnection();
+			
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(selectQuery);
 			// get count
@@ -179,11 +169,11 @@ public class UserDaoImpl implements UserDao {
 			}
 			try {
 				stmt.close();
-			} catch (SQLException e) {
+			} catch (SQLException e2) {
 			}
 			try {
 				conn.close();
-			} catch (SQLException e) {
+			} catch (SQLException e3) {
 			}
 		}
 	}
