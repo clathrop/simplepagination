@@ -2,6 +2,8 @@
 
 A prototype for simple pagination functionality to view users in a database. 
 
+![alt tag](https://github.com/clathrop/simplepagination/blob/master/git-images/simplepagination.png)
+
 Built with Struts2 framework and jTable.
 
 Steps to install:
