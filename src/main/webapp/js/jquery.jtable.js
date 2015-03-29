@@ -1948,7 +1948,7 @@ THE SOFTWARE.
                 autoOpen: false,
                 show: self.options.dialogShowEffect,
                 hide: self.options.dialogHideEffect,
-                width: 'auto',
+                width: '350',
                 minWidth: '300',
                 modal: true,
                 title: self.options.messages.addNewRecord,
@@ -2047,7 +2047,7 @@ THE SOFTWARE.
                         return;
                     }
                     
-                    if(!data.Record) {
+                    if(!data.record) {
                         self._logError('Server must return the created Record object.');
                         options.error(data);
                         return;
@@ -2056,7 +2056,7 @@ THE SOFTWARE.
                     self._onRecordAdded(data);
                     
                     self._addRow(
-                        self._createRowFromRecord(data.Record), {
+                        self._createRowFromRecord(data.record), {
                             isNewRow: true,
                             animationsEnabled: options.animationsEnabled
                         });
@@ -2145,7 +2145,7 @@ THE SOFTWARE.
                         return;
                     }
                     
-                    if (!data.Record) {
+                    if (!data.record) {
                         self._logError('Server must return the created Record object.');
                         self._setEnabledOfDialogButton($saveButton, true, self.options.messages.save);
                         return;
@@ -2153,7 +2153,7 @@ THE SOFTWARE.
 
                     self._onRecordAdded(data);
                     self._addRow(
-                        self._createRowFromRecord(data.Record), {
+                        self._createRowFromRecord(data.record), {
                             isNewRow: true
                         });
                     self._$addRecordDiv.dialog("close");
@@ -2165,7 +2165,7 @@ THE SOFTWARE.
         },
 
         _onRecordAdded: function (data) {
-            this._trigger("recordAdded", null, { record: data.Record, serverResponse: data });
+            this._trigger("recordAdded", null, { record: data.record, serverResponse: data });
         }
 
     });
@@ -2491,11 +2491,11 @@ THE SOFTWARE.
         * if server sends a Record object as response to updateAction.
         *************************************************************************/
         _updateRecordValuesFromServerResponse: function (record, serverResponse) {
-            if (!serverResponse || !serverResponse.Record) {
+            if (!serverResponse || !serverResponse.record) {
                 return;
             }
 
-            $.extend(true, record, serverResponse.Record);
+            $.extend(true, record, serverResponse.record);
         },
 
         /* Gets text for a field of a record according to it's type.

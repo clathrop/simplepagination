@@ -1,18 +1,32 @@
 package com.clathrop.hero.model;
 
 public class User {
+	private int userId;
 	private String firstName;
 	private String lastName;
 	private String userName;
 	private String email;
 	private int age;
 	
-	public User(String firstName, String lastName, String userName, String email, int age){
+	public User(int userId, String firstName, String lastName, String userName, String email, int age){
+		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.email = email;
 		this.age = age;
+	}
+
+	public User() {
+	
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {

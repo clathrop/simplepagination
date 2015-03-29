@@ -16,11 +16,15 @@
 
 	<package name="default" extends="json-default">
 	
-		<action name="listAction" class="com.clathrop.hero.controller.ViewUsersAction" method="execute">
+		<action name="listAction" class="com.clathrop.hero.controller.UserTableAction" method="listUsers">
 			<result type="json">/index.jsp</result>
 		</action>
 		
-		<action name="getJSONResult" class="com.clathrop.hero.controller.ViewUsersAction" method="execute">
+		<action name="createAction" class="com.clathrop.hero.controller.UserTableAction" method="createUser">
+			<result type="json">/index.jsp</result>
+		</action>
+		
+		<action name="getJSONResult" class="com.clathrop.hero.controller.UserTableAction" method="listUsers">
 			<result type="json" />
 		</action>
 	</package>
