@@ -58,11 +58,6 @@ public class UserTableAction extends ActionSupport {
 		record.setAge(age);
 
 		try {
-			if (!record.getFirstName().isEmpty() || record.getFirstName() != null) {
-				userDao.addUser(record);
-			} else {
-				throw new Exception("Form contents are empty, not inserting to DB");
-			}
 			setResult(OK);
 			return Action.SUCCESS;
 		} catch (Exception e) {
